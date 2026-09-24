@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ReleaseGuard Demo Checkout</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      justify-content: center;
+      padding-top: 60px;
+    }
+
+    .checkout {
+      width: 420px;
+      background: #1b1b1b;
+      padding: 30px;
+      border-radius: 16px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 16px 0;
+    }
+
+    input {
+      width: 65%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #222;
+      color: white;
+    }
+
+    button {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ff9900;
+    }
+
+    .success {
+      margin-top: 15px;
+      color: #00d084;
+    }
+
+    .total {
+      font-size: 22px;
+      font-weight: bold;
+      border-top: 1px solid #444;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="checkout">
+
+    <h1>Demo Checkout</h1>
+
+    <div class="row">
+      <span>Product</span>
+      <span id="product-price">₹1000</span>
+    </div>
+
+    <div>
+      <input
+        id="coupon"
+        placeholder="Enter coupon"
+      />
+
+      <button id="apply-coupon">
+        Apply
+      </button>
+    </div>
+
+    <div id="coupon-message"></div>
+
+    <div class="row">
+      <span>Discount</span>
+      <span id="discount">₹0</span>
+    </div>
+
+    <div class="row total">
+      <span>Total</span>
+      <span id="total">₹1000</span>
+    </div>
+
+  </div>
+
+  <script>
+    document
+      .getElementById("apply-coupon")
+      .addEventListener("click", () => {
+
+        const coupon =
+          document.getElementById("coupon").value;
+
+        if (coupon === "SAVE20") {
+
+          document.getElementById(
+            "coupon-message"
+          ).innerHTML =
+            '<div class="success">Coupon applied successfully!</div>';
+
+          // INTENTIONAL BUG:
+          // The coupon is accepted,
+          // but the discount is not calculated.
+
+          document.getElementById("discount").innerText = "₹0";
+          document.getElementById("total").innerText = "₹1000";
+        }
+
+      });
+  </script>
+
+</body>
+</html>
