@@ -14,21 +14,24 @@ function runPlaywright() {
         const expectedMatch = output.match(/Expected:\s*"([^"]+)"/);
         const actualMatch = output.match(/Received:\s*"([^"]+)"/);
 
-        const screenshotMatch = output.match(
-          /attachment #1: screenshot.*?\n\s*(test-results\\[^\n]+\.png)/
+        // Extract evidence paths directly from Playwright output.
+        const pngMatch = output.match(
+          /test-results[\/\\][^\r\n\s]+\.png/
         );
 
-        const traceMatch = output.match(
-          /attachment #4: trace.*?\n\s*(test-results\\[^\n]+\.zip)/
+        const webmMatch = output.match(
+          /test-results[\/\\][^\r\n\s]+\.webm/
         );
 
-        const videoMatch = output.match(
-          /attachment #2: video.*?\n\s*(test-results\\[^\n]+\.webm)/
+        const zipMatch = output.match(
+          /test-results[\/\\][^\r\n\s]+\.zip/
         );
+
+        const normalizePath = (value) =>
+          value ? value.replace(/\\/g, "/") : null;
 
         resolve({
           passed: !error,
-
           output,
 
           failure: error
@@ -41,17 +44,17 @@ function runPlaywright() {
                   ? actualMatch[1]
                   : null,
 
-                screenshot: screenshotMatch
-  ? screenshotMatch[1].replace(/\\/g, "/")
-  : null,
+                screenshot: normalizePath(
+                  pngMatch ? pngMatch[0] : null
+                ),
 
-trace: traceMatch
-  ? traceMatch[1].replace(/\\/g, "/")
-  : null,
+                trace: normalizePath(
+                  zipMatch ? zipMatch[0] : null
+                ),
 
-video: videoMatch
-  ? videoMatch[1].replace(/\\/g, "/")
-  : null,
+                video: normalizePath(
+                  webmMatch ? webmMatch[0] : null
+                ),
               }
             : null,
         });
@@ -60,6 +63,4 @@ video: videoMatch
   });
 }
 
-module.exports = {
-  runPlaywright,
-};
+module.exports = { runPlaywright };
