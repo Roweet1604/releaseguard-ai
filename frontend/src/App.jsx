@@ -20,7 +20,7 @@ function App() {
   setAnalysis(null);
 
   try {
-    const response = await fetch("http://localhost:5000/api/analyze", {
+    const response = await fetch("https://re-6e54d3a06d8141cab7881bf379536904.ecs.ap-south-1.on.aws/api/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const createTestPlan = async () => {
     console.log("Calling backend...");
 
     const response = await fetch(
-      "http://localhost:5000/api/create-test-plan",
+      "https://re-6e54d3a06d8141cab7881bf379536904.ecs.ap-south-1.on.aws/api/create-test-plan",
       {
         method: "POST",
         headers: {
@@ -108,7 +108,7 @@ const generateTests = async () => {
     setError("");
 
     const response = await fetch(
-      "http://localhost:5000/api/generate-tests",
+      "https://re-6e54d3a06d8141cab7881bf379536904.ecs.ap-south-1.on.aws/api/generate-tests",
       {
         method: "POST",
         headers: {
@@ -142,7 +142,7 @@ const runTests = async () => {
     setTestResult(null);
 
     const response = await fetch(
-      "http://localhost:5000/api/run-tests",
+      "https://re-6e54d3a06d8141cab7881bf379536904.ecs.ap-south-1.on.aws/api/run-tests",
       {
         method: "POST",
         headers: {
@@ -473,7 +473,7 @@ const runTests = async () => {
         <span>Browser Screenshot</span>
 
         <img
-          src={`http://localhost:5000/${testResult.failureAnalysis.evidence.screenshot}`}
+          src={`https://re-6e54d3a06d8141cab7881bf379536904.ecs.ap-south-1.on.aws/${testResult.failureAnalysis.evidence.screenshot}`}
           alt="Playwright failure screenshot"
         />
       </div>
@@ -482,7 +482,7 @@ const runTests = async () => {
     <div className="evidence-links">
       {testResult.failureAnalysis.evidence.video && (
         <a
-          href={`http://localhost:5000/${testResult.failureAnalysis.evidence.video}`}
+          href={`https://re-6e54d3a06d8141cab7881bf379536904.ecs.ap-south-1.on.aws/${testResult.failureAnalysis.evidence.video}`}
           target="_blank"
           rel="noreferrer"
         >
@@ -492,7 +492,7 @@ const runTests = async () => {
 
       {testResult.failureAnalysis.evidence.trace && (
         <a
-          href={`http://localhost:5000/${testResult.failureAnalysis.evidence.trace}`}
+          href={`https://re-6e54d3a06d8141cab7881bf379536904.ecs.ap-south-1.on.aws/${testResult.failureAnalysis.evidence.trace}`}
           target="_blank"
           rel="noreferrer"
         >
